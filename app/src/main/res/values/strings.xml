@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AdminForGroceryStore</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_search_user">Search User</string>
+    <string name="button_send">Send</string>
+    <string name="default_content_image">nothing</string>
+    <string name="empty_message">Let\'s choose someone to start chatting!</string>
+</resources>
