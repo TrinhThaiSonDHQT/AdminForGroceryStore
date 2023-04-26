@@ -40,7 +40,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:ignore="NestedWeights" />
     </LinearLayout>
-
+<!--    abc-->
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
