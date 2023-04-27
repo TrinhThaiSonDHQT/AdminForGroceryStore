@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.admin.adapter.UserAdapter
@@ -55,8 +56,10 @@ class MessagesFragment : Fragment(), UserAdapter.ItemClickListener {
                 val user = User(uid, email, name)
                 listUser.add(user)
                 userAdapter.notifyDataSetChanged()
+
                 progressBar.visibility = View.GONE
                 binding.notChooseUser.visibility = View.VISIBLE
+                binding.lefSideChats.visibility = View.VISIBLE
             }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
