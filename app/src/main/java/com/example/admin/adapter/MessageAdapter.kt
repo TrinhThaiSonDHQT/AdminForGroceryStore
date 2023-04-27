@@ -18,8 +18,8 @@ class MessageAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     lateinit var messages: ArrayList<Message>
-    val ITEM_SENT = 1
-    val ITEM_RECEIVE = 2
+    private val ITEM_SENT = 1
+    private val ITEM_RECEIVE = 2
     private val senderRoom: String
     private val receiverRoom: String
 
@@ -51,7 +51,7 @@ class MessageAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val messages = messages[position]
-        return if (FirebaseAuth.getInstance().uid == messages.senderId) {
+        return if (messages.senderId == "admin") {
             ITEM_SENT
         } else {
             ITEM_RECEIVE

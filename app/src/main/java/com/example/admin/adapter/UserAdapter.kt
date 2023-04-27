@@ -1,23 +1,16 @@
 package com.example.admin.adapter
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.PendingIntent
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.SurfaceControl.Transaction
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.admin.R
-import com.example.admin.fragments.MessagesFragment
 import com.example.admin.model.User
 
 

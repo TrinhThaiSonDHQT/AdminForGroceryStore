@@ -9,16 +9,12 @@ class Message {
 
     constructor() {}
     constructor(
-        messageId: String?,
         message: String?,
         senderId: String?,
-        imageUrl: String?,
         timeStamp: Long
     ) {
-        this.messageId = messageId
         this.message = message
         this.senderId = senderId
-        this.imageUrl = imageUrl
         this.timeStamp = timeStamp
     }
 

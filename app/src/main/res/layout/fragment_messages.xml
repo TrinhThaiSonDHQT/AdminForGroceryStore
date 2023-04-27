@@ -126,24 +126,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
             android:padding="10dp"
-            android:weightSum="2"
             tools:ignore="NestedWeights">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/receiverMessage"
-                android:layout_width="0dp"
+                android:id="@+id/recycleChats"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/senderMessage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
 
         <RelativeLayout
