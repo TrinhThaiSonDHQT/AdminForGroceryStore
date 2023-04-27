@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,7 @@
     android:padding="7dp"
     android:weightSum="3"
     tools:context=".fragments.MessagesFragment">
+
 
     <LinearLayout
         android:layout_width="0dp"
@@ -40,28 +42,37 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:ignore="NestedWeights" />
     </LinearLayout>
-<!--    abc-->
+
+    <ProgressBar
+        android:id="@+id/progressBarChats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="50dp"
+        android:visibility="visible"
+        android:backgroundTint="@color/bg_header_chats"/>
+
     <TextView
+        android:id="@+id/notChooseUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="2"
         android:text="@string/empty_message"
-        android:layout_gravity="center"
-        android:textSize="23sp"
-        android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/bg_header_chats"
-        android:visibility="visible"
-        android:id="@+id/notChooseUser"/>
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/chats"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:layout_weight="2"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:id="@+id/chats">
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,8 +93,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/avatarChats"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/avatarChats">
 
                 <TextView
                     android:id="@+id/userEmailChats"

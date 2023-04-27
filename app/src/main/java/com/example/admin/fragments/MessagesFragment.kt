@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.admin.adapter.UserAdapter
@@ -19,13 +19,14 @@ class MessagesFragment : Fragment(), UserAdapter.ItemClickListener {
     private lateinit var binding: FragmentMessagesBinding
     private lateinit var recyclerViewUsers: RecyclerView
     private lateinit var userAdapter: UserAdapter
+    private lateinit var progressBar: ProgressBar
     private val listUser = ArrayList<User>()
     private var isChooseUser: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMessagesBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -38,6 +39,8 @@ class MessagesFragment : Fragment(), UserAdapter.ItemClickListener {
 
         userAdapter = UserAdapter(listUser, requireContext(), this)
         recyclerViewUsers.adapter = userAdapter
+
+        progressBar = binding.progressBarChats
 
         getUsers()
     }
@@ -52,6 +55,8 @@ class MessagesFragment : Fragment(), UserAdapter.ItemClickListener {
                 val user = User(uid, email, name)
                 listUser.add(user)
                 userAdapter.notifyDataSetChanged()
+                progressBar.visibility = View.GONE
+                binding.notChooseUser.visibility = View.VISIBLE
             }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
