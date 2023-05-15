@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -141,23 +140,60 @@ class MessagesFragment : Fragment(), UserAdapter.ItemClickListener {
                 binding.lefSideChats.visibility = View.VISIBLE
             }
 
-            override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
+            override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {}
 
-            }
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
 
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+            override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {}
 
-            }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
         }
         databaseUser.addChildEventListener(childEventListener)
+
+        updateListUses()
+    }
+
+    private fun updateListUses() {
+        var max = 10000000000
+        val childEventListener = object : ChildEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+                dataSnapshot.child("lastMsg").ref.addListenerForSingleValueEvent(object :
+                    ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val time = dataSnapshot.child("lastMsgTime").value.toString().toLong()
+                        if (time > max) {
+                            max = time
+                            changeOrder(dataSnapshot.key!!)
+                        }
+
+                    }
+
+                    private fun changeOrder(userId: String) {
+                        for (user in listUser) {
+                            if (userId.contains(user.uid!!)) {
+                                listUser.removeAt(listUser.indexOf(user))
+                                listUser.add(0, user)
+                                userAdapter.notifyDataSetChanged()
+                                break
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+
+                })
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        }
+        databaseMessage!!.getReference("chats").addChildEventListener(childEventListener)
     }
 
     override fun onItemClick(user: User) {
