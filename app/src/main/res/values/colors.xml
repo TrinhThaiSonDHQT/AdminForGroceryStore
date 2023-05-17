@@ -17,7 +17,8 @@
     <color name="search_opaque">#ffaa3f</color>
     <color name="selected_background">#ffaa3f</color>
     <color name="default_background">#3d3d3d</color>
-
     <color name="text_message">#4C4C4C</color>
+    <color name="bg_order_by_price">#D6D6D6</color>
+    <color name="text_default">#383838</color>
 
 </resources>

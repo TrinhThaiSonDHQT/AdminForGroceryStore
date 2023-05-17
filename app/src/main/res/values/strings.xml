@@ -23,4 +23,18 @@
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+    <string name="hint_search_item">Search items</string>
+    <string name="button_add_item">Add Item</string>
+    <string name="label_order_by_price">Order By Price</string>
+    <string name="table_row_product">Product</string>
+    <string name="table_row_type">Type</string>
+    <string name="table_row_price">Price</string>
+    <string name="table_row_description">Description</string>
+    <string name="table_row_Name">Vegtable</string>
+
+    <!--  label for order by price  -->
+    <string-array name="order_price_array">
+        <item>Low To High</item>
+        <item>High To Low</item>
+    </string-array>
 </resources>
