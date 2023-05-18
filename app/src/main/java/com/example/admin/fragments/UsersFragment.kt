@@ -1,60 +1,87 @@
 package com.example.admin.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.admin.R
+import android.widget.AdapterView
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.example.admin.adapter.UserManagementAdapter
+import com.example.admin.databinding.FragmentUsersBinding
+import com.example.admin.model.Product
+import com.example.admin.model.UserManagement
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private fun <E> ArrayList<E>.add(element: Product) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UsersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class UsersFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
+    UserManagementAdapter.OnDeleteClickListener {
+
+    private lateinit var binding: FragmentUsersBinding
+    private lateinit var listUser: ArrayList<UserManagement>
+    private lateinit var recyclerViewUserManagement: RecyclerView
+    private lateinit var adapterUser: UserManagementAdapter
+    private lateinit var firebaseFirestore: FirebaseFirestore
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false)
+        binding = FragmentUsersBinding.inflate(inflater, container, false)
+        recyclerViewUserManagement = binding.listUser
+        listUser = ArrayList()
+        adapterUser = UserManagementAdapter(listUser, requireContext(), this)
+        recyclerViewUserManagement.adapter = adapterUser
+
+        progressBar = binding.progressbar
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UsersFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UsersFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        firebaseFirestore = Firebase.firestore
+        getUserManagement()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getUserManagement() {
+        firebaseFirestore.collection("useraccount").get()
+            .addOnSuccessListener { documents ->
+                for(document in documents) {
+                    val useraccount = document.toObject<UserManagement>()
+                    listUser.add(useraccount)
                 }
+                adapterUser.notifyDataSetChanged()
+
             }
+            .addOnFailureListener { }
+
+
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        // implement your logic for item selection
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        // implement your logic when nothing is selected
+    }
+
+    override fun onDeleteClick(user: UserManagement) {
+        // implement your logic for delete action
     }
 }

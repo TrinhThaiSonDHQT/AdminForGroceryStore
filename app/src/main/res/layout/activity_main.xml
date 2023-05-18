@@ -12,7 +12,7 @@
         android:id="@+id/navigation_rail"
         android:layout_width="100dp"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/material_dynamic_secondary70"
+        android:backgroundTint="@color/background_gradient_end"
         app:elevation="30dp"
         app:itemIconSize="55dp"
         app:itemTextColor="@color/black"
