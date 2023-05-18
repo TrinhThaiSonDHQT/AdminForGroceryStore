@@ -8,13 +8,12 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.admin.R
-import com.example.admin.fragments.UsersFragment
 import com.example.admin.model.UserManagement
 
 class UserManagementAdapter(
     private val list: ArrayList<UserManagement>,
     private val context: Context,
-    usersFragment: UsersFragment,
+    private val clickListener: OnDeleteClickListener
 ) : RecyclerView.Adapter<UserManagementAdapter.ViewHolder>() {
 
     interface OnDeleteClickListener {
@@ -24,11 +23,14 @@ class UserManagementAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageUser: ImageView
         val userName: TextView
-        val emailUser:TextView
+        val emailUser: TextView
+        val buttonDelete: Button
+
         init {
             imageUser = view.findViewById(R.id.user_avatar)
             userName = view.findViewById(R.id.user_name)
             emailUser = view.findViewById(R.id.user_email)
+            buttonDelete = view.findViewById(R.id.delete_user)
         }
     }
 
@@ -42,10 +44,20 @@ class UserManagementAdapter(
         return list.size
     }
 
-    override fun onBindViewHolder(holder: UserManagementAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val usermanagement = list[position]
-        if(usermanagement.user_avatar != null) Glide.with(context).load(usermanagement.user_avatar).into(holder.imageUser)
+        if (usermanagement.user_avatar != null) Glide.with(context).load(usermanagement.user_avatar)
+            .into(holder.imageUser)
         holder.emailUser.text = usermanagement.email.toString()
         holder.userName.text = usermanagement.name.toString()
+        holder.buttonDelete.setOnClickListener {
+            clickListener.onDeleteClick(
+                UserManagement(
+                    list[position].user_avatar,
+                    list[position].email,
+                    list[position].name
+                )
+            )
+        }
     }
 }
