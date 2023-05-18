@@ -66,9 +66,10 @@ class CategoryFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if(position == 0) listProducts.sortBy {product: Product ->   product.price}
-        else if(position == 1) listProducts.sortByDescending {product: Product ->   product.price}
-        else listProducts.sortBy {product: Product ->   product.type}
+        if(position == 1) listProducts.sortBy {product: Product ->   product.price}
+        else if(position == 2) listProducts.sortByDescending {product: Product ->   product.price}
+        else if(position == 3) listProducts.sortBy {product: Product ->   product.type}
+        else if(position == 0 && searchBox.text.toString().isEmpty()) getAllProducts()
         adapterProducts.notifyDataSetChanged()
     }
 
