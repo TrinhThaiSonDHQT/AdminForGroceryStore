@@ -68,7 +68,6 @@ class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
                     listUser.add(useraccount)
                 }
                 adapterUser.notifyDataSetChanged()
-                Toast.makeText(this@UsersFragment.context, listUser.size.toString(), Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { }
         progressBar.visibility = View.GONE
