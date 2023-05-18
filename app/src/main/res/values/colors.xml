@@ -20,5 +20,8 @@
     <color name="text_message">#4C4C4C</color>
     <color name="bg_order_by_price">#D6D6D6</color>
     <color name="text_default">#383838</color>
+    <color name="button_cancel">#3F51B5</color>
+    <color name="divider">#B5B5B5</color>
+    <color name="delete_item">#FFEB3B</color>
 
 </resources>

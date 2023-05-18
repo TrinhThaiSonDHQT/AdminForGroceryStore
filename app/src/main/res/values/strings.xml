@@ -25,16 +25,30 @@
     <string name="dismiss_error">Dismiss</string>
     <string name="hint_search_item">Search items</string>
     <string name="button_add_item">Add Item</string>
-    <string name="label_order_by_price">Order By Price</string>
+    <string name="label_order_by_price">Order By</string>
     <string name="table_row_product">Product</string>
     <string name="table_row_type">Type</string>
     <string name="table_row_price">Price</string>
     <string name="table_row_description">Description</string>
-    <string name="table_row_Name">Vegtable</string>
+    <string name="table_row_Name">Vegetable</string>
+    <string name="cancel">Cancel</string>
+    <string name="hint_item_name">Enter the item\'s name</string>
+    <string name="label_item_type">Type</string>
+    <string name="type_fish">Fish</string>
+    <string name="type_egg">Egg</string>
+    <string name="type_fruit">Fruit</string>
+    <string name="type_vegetable">Vegetable</string>
+    <string name="type_milk">Milk</string>
+    <string name="hint_item_price">Enter the item\'s price</string>
+    <string name="hint_item_des">Enter the item\'s description</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="add_item">Add Item</string>
+    <string name="hint_item_image">Enter the item\'s image</string>
 
     <!--  label for order by price  -->
     <string-array name="order_price_array">
-        <item>Low To High</item>
-        <item>High To Low</item>
+        <item>Price: Low To High</item>
+        <item>Price: High To Low</item>
+        <item>Type</item>
     </string-array>
 </resources>
