@@ -44,10 +44,8 @@ class UserManagementAdapter(
 
     override fun onBindViewHolder(holder: UserManagementAdapter.ViewHolder, position: Int) {
         val usermanagement = list[position]
-        Glide.with(context).load(usermanagement.user_avatar).into(holder.imageUser)
+        if(usermanagement.user_avatar != null) Glide.with(context).load(usermanagement.user_avatar).into(holder.imageUser)
         holder.emailUser.text = usermanagement.email.toString()
         holder.userName.text = usermanagement.name.toString()
-
-
     }
 }
