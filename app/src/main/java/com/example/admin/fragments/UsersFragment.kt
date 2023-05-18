@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -27,8 +28,7 @@ private fun <E> ArrayList<E>.add(element: Product) {
 
 }
 
-class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
-    UserManagementAdapter.OnDeleteClickListener {
+class UsersFragment : Fragment(), UserManagementAdapter.OnDeleteClickListener {
 
     private lateinit var binding: FragmentUsersBinding
     private lateinit var listUser: ArrayList<UserManagement>
@@ -36,12 +36,13 @@ class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private lateinit var adapterUser: UserManagementAdapter
     private lateinit var firebaseFirestore: FirebaseFirestore
     private lateinit var progressBar: ProgressBar
+    private lateinit var buttonDelete: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentUsersBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentUsersBinding.inflate(layoutInflater)
 
         recyclerViewUserManagement = binding.listUser
         listUser = ArrayList()
@@ -73,15 +74,27 @@ class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
         progressBar.visibility = View.GONE
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        // implement your logic for item selection
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        // implement your logic when nothing is selected
-    }
+//    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//        // implement your logic for item selection
+//    }
+//
+//    override fun onNothingSelected(p0: AdapterView<*>?) {
+//        // implement your logic when nothing is selected
+//    }
 
     override fun onDeleteClick(user: UserManagement) {
-        // implement your logic for delete action
+        firebaseFirestore.collection("useraccount")
+            .whereEqualTo("email", user.email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    firebaseFirestore.collection("useraccount")
+                        .document(document.id)
+                        .delete()
+                    getUserManagement()
+                }
+            }
+            .addOnFailureListener { }
     }
+
 }
