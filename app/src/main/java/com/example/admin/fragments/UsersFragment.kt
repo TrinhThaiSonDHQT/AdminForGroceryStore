@@ -42,6 +42,7 @@ class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUsersBinding.inflate(inflater, container, false)
+
         recyclerViewUserManagement = binding.listUser
         listUser = ArrayList()
         adapterUser = UserManagementAdapter(listUser, requireContext(), this)
@@ -61,16 +62,16 @@ class UsersFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private fun getUserManagement() {
         firebaseFirestore.collection("useraccount").get()
             .addOnSuccessListener { documents ->
-                for(document in documents) {
+                listUser.clear()
+                for (document in documents) {
                     val useraccount = document.toObject<UserManagement>()
                     listUser.add(useraccount)
                 }
                 adapterUser.notifyDataSetChanged()
-
+                Toast.makeText(this@UsersFragment.context, listUser.size.toString(), Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { }
-
-
+        progressBar.visibility = View.GONE
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
